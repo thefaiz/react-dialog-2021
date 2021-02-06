@@ -1,24 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import Dialog from './Dialog';
+import React, { useState } from 'react';
 
 function App() {
+  const [showTaskDialog, setShowTaskDialog] = useState(false);
+  const [showUserDialog, setShowUserDialog] = useState(false);
+
+  const confirm = () => {
+    console.log('Confirm');
+    setShowTaskDialog(false);
+  };
+
+  const confirmUser = () => {
+    console.log('Confirm user');
+    setShowUserDialog(false);
+  };
+
+  const cancel = () => {
+    setShowTaskDialog(false);
+    setShowUserDialog(false);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  <>
+    <div className="mt-10 text-center">
+      <button className="btn" onClick={() => { setShowTaskDialog(true) }}>Delete Task</button>
+      <button className="btn" onClick={() => { setShowUserDialog(true) }}>Delete User</button>
     </div>
+
+    <Dialog
+      show={showTaskDialog}
+      title="Delete a task?"
+      description="Are you sure you want to delete this task?"
+      confirm={confirm}
+      cancel={cancel} />
+
+    <Dialog
+      show={showUserDialog}
+      title="Delete a user?"
+      description="Are you sure you want to delete this user?"
+      confirm={confirmUser}
+      cancel={cancel} />
+  </>
   );
 }
 
